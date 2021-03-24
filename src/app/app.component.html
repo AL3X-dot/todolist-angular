@@ -1,0 +1,50 @@
+<div class="container center">
+    <h3>To-Do List</h3>
+    <div class="col s8">
+        <div class="row">
+            <div class="col s6 offset-s3 input-field myCol">
+                <input type="text" [(ngModel)]="description" id="inputItem" />
+                <label for="">New Item</label>
+            </div>
+            <div class="col s2">
+                <button class="btn btn-flat grey lighten-2" (click)="addItem()">
+          Add
+        </button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="btn btn-flat teal lighten-3" (click)="statusFilter('completed')">
+            Completed
+        </div>
+        |
+        <div class="btn btn-flat blue lighten-3" (click)="statusFilter('progress')">
+            In Progress
+        </div>
+        |
+        <div class="btn btn-flat red lighten-3" (click)="statusFilter('new')">
+            New Task
+        </div>
+    </div>
+</div>
+<br />
+<div class="center" *ngIf="checkList(); else emptyList">
+    <table class="container">
+        <tbody>
+            <tr *ngFor="let item of list">
+                <td [ngClass]="getClass(item.status)" style="display: block">
+                    <span class="black-text">{{ item.description }}</span>
+                    <i class="material-icons right" *ngIf="checkStatus(item.status)" (click)="changeStatus(item)">check</i
+          >
+          <i class="material-icons right" (click)="deleteItem(item)">close</i>
+                </td>
+                <br />
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ng-template #emptyList>
+    <div class="container center">
+        <h4>List is empty.</h4>
+    </div>
+</ng-template>
